@@ -1,0 +1,5 @@
+note:
+1. In Core data sql command, the predicate (for exact string matching) should be “cwid = %@”, entityId instead of “%@ = %@”,SOME_KEY,entityId.
+Because if so, it is comparing two strings: cwid and 123, which is never true;
+
+2. Lib project does not integrate with SQLite db by default. So, for this framework, need to use single page app. Otherwise, it would cause error: NSManagedObjectContext does not find DataModel.

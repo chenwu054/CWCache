@@ -15,6 +15,19 @@
 		747583291B04FEAC00DC06AB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 747583281B04FEAC00DC06AB /* Images.xcassets */; };
 		7475832C1B04FEAC00DC06AB /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7475832A1B04FEAC00DC06AB /* LaunchScreen.xib */; };
 		747583381B04FEAC00DC06AB /* CWCacheTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 747583371B04FEAC00DC06AB /* CWCacheTests.m */; };
+		747583421B04FEE000DC06AB /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 747583411B04FEE000DC06AB /* CoreData.framework */; };
+		747583511B04FF4B00DC06AB /* CWCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 747583461B04FF4B00DC06AB /* CWCacheManager.m */; };
+		747583521B04FF4B00DC06AB /* CWCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 747583481B04FF4B00DC06AB /* CWCache.m */; };
+		747583531B04FF4B00DC06AB /* CWEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 7475834A1B04FF4B00DC06AB /* CWEntity.m */; };
+		747583541B04FF4B00DC06AB /* CWImageOrig.m in Sources */ = {isa = PBXBuildFile; fileRef = 7475834C1B04FF4B00DC06AB /* CWImageOrig.m */; };
+		747583551B04FF4B00DC06AB /* CWPriorityQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 7475834E1B04FF4B00DC06AB /* CWPriorityQueue.m */; };
+		747583561B04FF4B00DC06AB /* CWUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 747583501B04FF4B00DC06AB /* CWUtils.m */; };
+		7475835E1B04FF5B00DC06AB /* CWCacheLRUScheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 747583591B04FF5B00DC06AB /* CWCacheLRUScheme.m */; };
+		7475835F1B04FF5B00DC06AB /* CWCacheLFUScheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 7475835B1B04FF5B00DC06AB /* CWCacheLFUScheme.m */; };
+		747583601B04FF5B00DC06AB /* CWCacheRandomScheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 7475835D1B04FF5B00DC06AB /* CWCacheRandomScheme.m */; };
+		747583631B04FF7500DC06AB /* PriorityQueueTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 747583611B04FF7500DC06AB /* PriorityQueueTests.m */; };
+		747583641B04FF7500DC06AB /* CWUtilsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 747583621B04FF7500DC06AB /* CWUtilsTests.m */; };
+		7475836B1B05004500DC06AB /* CWImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 7475836A1B05004500DC06AB /* CWImage.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +55,32 @@
 		747583311B04FEAC00DC06AB /* CWCacheTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CWCacheTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		747583361B04FEAC00DC06AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		747583371B04FEAC00DC06AB /* CWCacheTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CWCacheTests.m; sourceTree = "<group>"; };
+		747583411B04FEE000DC06AB /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		747583431B04FF1500DC06AB /* CWCache.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CWCache.pch; sourceTree = "<group>"; };
+		747583441B04FF4B00DC06AB /* CrazyCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrazyCache.h; sourceTree = "<group>"; };
+		747583451B04FF4B00DC06AB /* CWCacheManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWCacheManager.h; sourceTree = "<group>"; };
+		747583461B04FF4B00DC06AB /* CWCacheManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CWCacheManager.m; sourceTree = "<group>"; };
+		747583471B04FF4B00DC06AB /* CWCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWCache.h; sourceTree = "<group>"; };
+		747583481B04FF4B00DC06AB /* CWCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CWCache.m; sourceTree = "<group>"; };
+		747583491B04FF4B00DC06AB /* CWEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWEntity.h; sourceTree = "<group>"; };
+		7475834A1B04FF4B00DC06AB /* CWEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CWEntity.m; sourceTree = "<group>"; };
+		7475834B1B04FF4B00DC06AB /* CWImageOrig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWImageOrig.h; sourceTree = "<group>"; };
+		7475834C1B04FF4B00DC06AB /* CWImageOrig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CWImageOrig.m; sourceTree = "<group>"; };
+		7475834D1B04FF4B00DC06AB /* CWPriorityQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWPriorityQueue.h; sourceTree = "<group>"; };
+		7475834E1B04FF4B00DC06AB /* CWPriorityQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CWPriorityQueue.m; sourceTree = "<group>"; };
+		7475834F1B04FF4B00DC06AB /* CWUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWUtils.h; sourceTree = "<group>"; };
+		747583501B04FF4B00DC06AB /* CWUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CWUtils.m; sourceTree = "<group>"; };
+		747583571B04FF5B00DC06AB /* CWCacheSchemeDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWCacheSchemeDelegate.h; sourceTree = "<group>"; };
+		747583581B04FF5B00DC06AB /* CWCacheLRUScheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWCacheLRUScheme.h; sourceTree = "<group>"; };
+		747583591B04FF5B00DC06AB /* CWCacheLRUScheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CWCacheLRUScheme.m; sourceTree = "<group>"; };
+		7475835A1B04FF5B00DC06AB /* CWCacheLFUScheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWCacheLFUScheme.h; sourceTree = "<group>"; };
+		7475835B1B04FF5B00DC06AB /* CWCacheLFUScheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CWCacheLFUScheme.m; sourceTree = "<group>"; };
+		7475835C1B04FF5B00DC06AB /* CWCacheRandomScheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWCacheRandomScheme.h; sourceTree = "<group>"; };
+		7475835D1B04FF5B00DC06AB /* CWCacheRandomScheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CWCacheRandomScheme.m; sourceTree = "<group>"; };
+		747583611B04FF7500DC06AB /* PriorityQueueTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PriorityQueueTests.m; sourceTree = "<group>"; };
+		747583621B04FF7500DC06AB /* CWUtilsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CWUtilsTests.m; sourceTree = "<group>"; };
+		747583691B05004500DC06AB /* CWImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CWImage.h; path = CWCache/CWImage.h; sourceTree = "<group>"; };
+		7475836A1B05004500DC06AB /* CWImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CWImage.m; path = CWCache/CWImage.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				747583421B04FEE000DC06AB /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,9 +105,12 @@
 		7475830C1B04FEAC00DC06AB = {
 			isa = PBXGroup;
 			children = (
+				747583691B05004500DC06AB /* CWImage.h */,
+				7475836A1B05004500DC06AB /* CWImage.m */,
 				747583171B04FEAC00DC06AB /* CWCache */,
 				747583341B04FEAC00DC06AB /* CWCacheTests */,
 				747583161B04FEAC00DC06AB /* Products */,
+				747583411B04FEE000DC06AB /* CoreData.framework */,
 			);
 			sourceTree = "<group>";
 		};
@@ -83,6 +126,20 @@
 		747583171B04FEAC00DC06AB /* CWCache */ = {
 			isa = PBXGroup;
 			children = (
+				747583651B04FF7D00DC06AB /* schemes */,
+				747583441B04FF4B00DC06AB /* CrazyCache.h */,
+				747583451B04FF4B00DC06AB /* CWCacheManager.h */,
+				747583461B04FF4B00DC06AB /* CWCacheManager.m */,
+				747583471B04FF4B00DC06AB /* CWCache.h */,
+				747583481B04FF4B00DC06AB /* CWCache.m */,
+				747583491B04FF4B00DC06AB /* CWEntity.h */,
+				7475834A1B04FF4B00DC06AB /* CWEntity.m */,
+				7475834B1B04FF4B00DC06AB /* CWImageOrig.h */,
+				7475834C1B04FF4B00DC06AB /* CWImageOrig.m */,
+				7475834D1B04FF4B00DC06AB /* CWPriorityQueue.h */,
+				7475834E1B04FF4B00DC06AB /* CWPriorityQueue.m */,
+				7475834F1B04FF4B00DC06AB /* CWUtils.h */,
+				747583501B04FF4B00DC06AB /* CWUtils.m */,
 				7475831C1B04FEAC00DC06AB /* AppDelegate.h */,
 				7475831D1B04FEAC00DC06AB /* AppDelegate.m */,
 				747583221B04FEAC00DC06AB /* ViewController.h */,
@@ -92,6 +149,7 @@
 				7475832A1B04FEAC00DC06AB /* LaunchScreen.xib */,
 				7475831F1B04FEAC00DC06AB /* CWCache.xcdatamodeld */,
 				747583181B04FEAC00DC06AB /* Supporting Files */,
+				747583431B04FF1500DC06AB /* CWCache.pch */,
 			);
 			path = CWCache;
 			sourceTree = "<group>";
@@ -109,6 +167,8 @@
 			isa = PBXGroup;
 			children = (
 				747583371B04FEAC00DC06AB /* CWCacheTests.m */,
+				747583611B04FF7500DC06AB /* PriorityQueueTests.m */,
+				747583621B04FF7500DC06AB /* CWUtilsTests.m */,
 				747583351B04FEAC00DC06AB /* Supporting Files */,
 			);
 			path = CWCacheTests;
@@ -120,6 +180,20 @@
 				747583361B04FEAC00DC06AB /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		747583651B04FF7D00DC06AB /* schemes */ = {
+			isa = PBXGroup;
+			children = (
+				747583571B04FF5B00DC06AB /* CWCacheSchemeDelegate.h */,
+				747583581B04FF5B00DC06AB /* CWCacheLRUScheme.h */,
+				747583591B04FF5B00DC06AB /* CWCacheLRUScheme.m */,
+				7475835A1B04FF5B00DC06AB /* CWCacheLFUScheme.h */,
+				7475835B1B04FF5B00DC06AB /* CWCacheLFUScheme.m */,
+				7475835C1B04FF5B00DC06AB /* CWCacheRandomScheme.h */,
+				7475835D1B04FF5B00DC06AB /* CWCacheRandomScheme.m */,
+			);
+			name = schemes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -223,8 +297,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				7475831E1B04FEAC00DC06AB /* AppDelegate.m in Sources */,
+				747583561B04FF4B00DC06AB /* CWUtils.m in Sources */,
+				747583531B04FF4B00DC06AB /* CWEntity.m in Sources */,
+				7475836B1B05004500DC06AB /* CWImage.m in Sources */,
+				7475835F1B04FF5B00DC06AB /* CWCacheLFUScheme.m in Sources */,
+				747583601B04FF5B00DC06AB /* CWCacheRandomScheme.m in Sources */,
+				747583511B04FF4B00DC06AB /* CWCacheManager.m in Sources */,
+				747583551B04FF4B00DC06AB /* CWPriorityQueue.m in Sources */,
+				747583521B04FF4B00DC06AB /* CWCache.m in Sources */,
+				7475835E1B04FF5B00DC06AB /* CWCacheLRUScheme.m in Sources */,
 				7475831B1B04FEAC00DC06AB /* main.m in Sources */,
 				747583241B04FEAC00DC06AB /* ViewController.m in Sources */,
+				747583541B04FF4B00DC06AB /* CWImageOrig.m in Sources */,
 				747583211B04FEAC00DC06AB /* CWCache.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -234,6 +318,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				747583381B04FEAC00DC06AB /* CWCacheTests.m in Sources */,
+				747583641B04FF7500DC06AB /* CWUtilsTests.m in Sources */,
+				747583631B04FF7500DC06AB /* PriorityQueueTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -292,6 +378,8 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = CWCache/CWCache.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -335,6 +423,8 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = CWCache/CWCache.pch;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -422,6 +512,7 @@
 				7475833D1B04FEAC00DC06AB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7475833E1B04FEAC00DC06AB /* Build configuration list for PBXNativeTarget "CWCacheTests" */ = {
 			isa = XCConfigurationList;
@@ -430,6 +521,7 @@
 				747583401B04FEAC00DC06AB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
