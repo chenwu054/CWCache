@@ -7,12 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CWCache.h"
+#import "CWEntity.h"
+
+@class CWCache;
 
 @protocol CWCacheSchemeDelegate <NSObject>
 
+- (void)resetAllEntitiesMaintainOrderInCache:(CWCache*)cache;
 
-- (void)didQueryEntity:(id)entity;
+- (void)didQueryEntity:(CWEntity*)entity inCache:(CWCache*)cache;
 
-
+- (void)setInitialScoreToEntity:(CWEntity*)entity;
 
 @end

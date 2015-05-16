@@ -56,6 +56,8 @@
 
 /**
  * @discussion Fetch the CWEntity in the context for the given entity ID
+ * If entityId is not provided, it will do return all the records 
+ * If entityId is provided, it will search for the unique entity.
  * @param className The name of the CWEntity.item class. This specifies which NSManagedContext to fetch the entity from
  * @param entityId The entity ID for the fetch.
  **/
@@ -69,9 +71,10 @@
 
 /**
  * @discussion Remove the entity 
- * @param entity The entity to be removed;
+ * @param entityId The ID associated with the entity to be removed;
+ * @param className The name of Class of the NSManagedObject
  */
-- (void)deleteEntity:(CWEntity*)entity;
+- (void)deleteEntityWithEntityId:(NSString*)entityId ofClassName:(NSString*)className;
 
 
 

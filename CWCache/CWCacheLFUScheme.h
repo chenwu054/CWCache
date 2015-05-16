@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "CWCacheSchemeDelegate.h"
 
+@protocol CWCacheSchemeDelegate;
+
 @interface CWCacheLFUScheme : NSObject <CWCacheSchemeDelegate>
 
 @end

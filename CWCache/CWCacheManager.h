@@ -7,18 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CWCache.h"
+@class CWCache;
 
 @interface CWCacheManager : NSObject
-/**
- * @abstract the enum of the priority. Lower priority will be 
- * discarded first.
- */
-typedef enum
-{
-    low = 1,
-    defaultLevel,
-    high
-}
-CWCachePriority;
+
++ (instancetype)sharedInstance;
+
+
+
+- (CWCache*)getCacheForManagedObjectWithClassName:(Class)className;
+
+- (void)freeMoreSpace;
+
 
 @end

@@ -10,4 +10,21 @@
 
 @implementation CWCacheLRUScheme
 
+
+- (void)resetAllEntitiesMaintainOrderInCache:(CWCache*)cache
+{
+    
+}
+
+- (void)didQueryEntity:(CWEntity*)entity inCache:(CWCache*)cache
+{
+
+}
+
+- (void)setInitialScoreToEntity:(CWEntity*)entity
+{
+    
+}
+
+
 @end

@@ -20,6 +20,20 @@
 @property (nonatomic) NSMutableArray* score;
 @property (nonatomic) NSNumber* avgScore;
 
+/**
+ * @discussion May NOT work, since can not set property directly to NSManagedObject
+ */
+- (instancetype)initWithManagedObject:(NSManagedObject*)object andId:(NSString*)entityId;
+
+/**
+ *
+ */
 - (instancetype)initWithClass:(Class)objectClass andId:(NSString*)entityId;
+
+/**
+ *
+ */
+- (id)convertToManagedObject;
+
 
 @end

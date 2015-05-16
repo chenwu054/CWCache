@@ -200,11 +200,17 @@ static CWUtils* instance;
     /*
      check if it is there
      */
+    id ret = [self queryEntityClass:entity.className andId:entity.entityId];
+    if(ret){
+        @throw [NSException exceptionWithName:@"Entitiy already exists"
+                                       reason:@"An entity with the entityId already exists in core data"
+                                     userInfo:NULL];
+    }
     /*
      insert into context
      */
     NSManagedObjectContext* context = [self getContextForFilename:entity.className];
-    NSLog(@"item class is %@",entity.className);
+//    NSLog(@"item class is %@",entity.className);
     NSEntityDescription* desc = nil;
     @try{
          desc = [NSEntityDescription insertNewObjectForEntityForName:entity.className
@@ -228,35 +234,37 @@ static CWUtils* instance;
 //        NSLog(@"value is %@",value);
     }
     free(properties);
-    
     [context save:NULL];
 }
 
+
 - (id)queryEntityClass:(NSString*)className andId:(NSString*)entityId
 {
-    if(!entityId || entityId.length==0){
+    if(!className || className.length==0){
         return nil;
     }
     NSFetchRequest* request = [NSFetchRequest fetchRequestWithEntityName:className];
     request.fetchBatchSize=10;
     request.fetchLimit=10;
     NSSortDescriptor* sorter = [NSSortDescriptor sortDescriptorWithKey:ENTITY_ID_KEY ascending:YES];
-    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"cwid = %@",entityId];
-    request.sortDescriptors = @[sorter];
-    request.predicate=predicate;
-
+    if(entityId && entityId.length>0){
+        NSPredicate* predicate = [NSPredicate predicateWithFormat:@"cwid = %@",entityId];
+        request.sortDescriptors = @[sorter];
+        request.predicate=predicate;
+    }
+    
     NSManagedObjectContext* context = [self getContextForFilename:className];
-    NSLog(@"request is %@ and context is %@",request,context);
+//    NSLog(@"request is %@ and context is %@",request,context);
     NSError* error;
     NSArray* results = [context executeFetchRequest:request error:&error];
-    for(int i =0;i<results.count;i++){
-        CWImage* image = (CWImage*)[results objectAtIndex:i];
-        NSLog(@"image %d is %@,%@,%@,%@",i,image.cwid,image.imageInitDate,image.imageId,image.imageContent);
-    }
-    if(results.count>0){
+//    for(int i =0;i<results.count;i++){
+//        CWImage* image = (CWImage*)[results objectAtIndex:i];
+//        NSLog(@"image %d is %@,%@,%@,%@",i,image.cwid,image.imageInitDate,image.imageId,image.imageContent);
+//    }
+    if(results.count==1){
         return [results firstObject];
     }
-    return nil;
+    return results;
 }
 
 - (void)updateEntity:(CWEntity*)entity
@@ -264,16 +272,17 @@ static CWUtils* instance;
     
 }
 
-//- (void)deleteEntity:(CWEntity*)entity
-//{
-//    if(!entity) return;
-//    NSManagedObjectContext* context = [self getContextForFilename:entity.className];
-//    if(!context){
-//        //TODO: should throw exception;
-//        return;
-//    }
-//    [context deleteObject:entity.item];
-//}
+- (void)deleteEntityWithEntityId:(NSString*)entityId ofClassName:(NSString*)className
+{
+    if(!entityId || entityId.length==0 || !className || className.length==0) return;
+    NSManagedObjectContext* context = [self getContextForFilename:className];
+    if(!context){
+        //TODO: should throw exception;
+        return;
+    }
+    NSManagedObject* object = (NSManagedObject*)[self queryEntityClass:className andId:entityId];
+    [context deleteObject:object];
+}
 
 
 #pragma mark - 

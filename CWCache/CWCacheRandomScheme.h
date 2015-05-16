@@ -9,8 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "CWCacheSchemeDelegate.h"
 
-@interface CWCacheRandomScheme : NSObject <CWCacheSchemeDelegate>
+@protocol CWCacheSchemeDelegate;
 
+@interface CWCacheRandomScheme : NSObject <CWCacheSchemeDelegate>
 
 //randomly selects an item and set its avgScore to 0
 

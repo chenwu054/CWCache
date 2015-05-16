@@ -19,7 +19,6 @@
 		747583511B04FF4B00DC06AB /* CWCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 747583461B04FF4B00DC06AB /* CWCacheManager.m */; };
 		747583521B04FF4B00DC06AB /* CWCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 747583481B04FF4B00DC06AB /* CWCache.m */; };
 		747583531B04FF4B00DC06AB /* CWEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 7475834A1B04FF4B00DC06AB /* CWEntity.m */; };
-		747583541B04FF4B00DC06AB /* CWImageOrig.m in Sources */ = {isa = PBXBuildFile; fileRef = 7475834C1B04FF4B00DC06AB /* CWImageOrig.m */; };
 		747583551B04FF4B00DC06AB /* CWPriorityQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 7475834E1B04FF4B00DC06AB /* CWPriorityQueue.m */; };
 		747583561B04FF4B00DC06AB /* CWUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 747583501B04FF4B00DC06AB /* CWUtils.m */; };
 		7475835E1B04FF5B00DC06AB /* CWCacheLRUScheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 747583591B04FF5B00DC06AB /* CWCacheLRUScheme.m */; };
@@ -64,8 +63,6 @@
 		747583481B04FF4B00DC06AB /* CWCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CWCache.m; sourceTree = "<group>"; };
 		747583491B04FF4B00DC06AB /* CWEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWEntity.h; sourceTree = "<group>"; };
 		7475834A1B04FF4B00DC06AB /* CWEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CWEntity.m; sourceTree = "<group>"; };
-		7475834B1B04FF4B00DC06AB /* CWImageOrig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWImageOrig.h; sourceTree = "<group>"; };
-		7475834C1B04FF4B00DC06AB /* CWImageOrig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CWImageOrig.m; sourceTree = "<group>"; };
 		7475834D1B04FF4B00DC06AB /* CWPriorityQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWPriorityQueue.h; sourceTree = "<group>"; };
 		7475834E1B04FF4B00DC06AB /* CWPriorityQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CWPriorityQueue.m; sourceTree = "<group>"; };
 		7475834F1B04FF4B00DC06AB /* CWUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWUtils.h; sourceTree = "<group>"; };
@@ -127,19 +124,17 @@
 			isa = PBXGroup;
 			children = (
 				747583651B04FF7D00DC06AB /* schemes */,
-				747583441B04FF4B00DC06AB /* CrazyCache.h */,
 				747583451B04FF4B00DC06AB /* CWCacheManager.h */,
 				747583461B04FF4B00DC06AB /* CWCacheManager.m */,
 				747583471B04FF4B00DC06AB /* CWCache.h */,
 				747583481B04FF4B00DC06AB /* CWCache.m */,
 				747583491B04FF4B00DC06AB /* CWEntity.h */,
 				7475834A1B04FF4B00DC06AB /* CWEntity.m */,
-				7475834B1B04FF4B00DC06AB /* CWImageOrig.h */,
-				7475834C1B04FF4B00DC06AB /* CWImageOrig.m */,
 				7475834D1B04FF4B00DC06AB /* CWPriorityQueue.h */,
 				7475834E1B04FF4B00DC06AB /* CWPriorityQueue.m */,
 				7475834F1B04FF4B00DC06AB /* CWUtils.h */,
 				747583501B04FF4B00DC06AB /* CWUtils.m */,
+				747583441B04FF4B00DC06AB /* CrazyCache.h */,
 				7475831C1B04FEAC00DC06AB /* AppDelegate.h */,
 				7475831D1B04FEAC00DC06AB /* AppDelegate.m */,
 				747583221B04FEAC00DC06AB /* ViewController.h */,
@@ -308,7 +303,6 @@
 				7475835E1B04FF5B00DC06AB /* CWCacheLRUScheme.m in Sources */,
 				7475831B1B04FEAC00DC06AB /* main.m in Sources */,
 				747583241B04FEAC00DC06AB /* ViewController.m in Sources */,
-				747583541B04FF4B00DC06AB /* CWImageOrig.m in Sources */,
 				747583211B04FEAC00DC06AB /* CWCache.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

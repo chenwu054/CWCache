@@ -7,6 +7,7 @@
 //
 
 #import "CWCache.h"
+#import <malloc/malloc.h>
 
 #define DEFAULT_CAPACITY 20
 
@@ -14,6 +15,8 @@
 
 @property (nonatomic) NSMutableDictionary* map;
 @property (nonatomic) CWPriorityQueue* pq;
+@property (nonatomic) NSInteger countLimit;
+@property (nonatomic) NSInteger memLimit;
 
 /**
  * @abstract The schemes
@@ -33,12 +36,13 @@
     if(!self) return nil;
     self.priority = defaultLevel;
 //    self.schemes=@{NSStringFromClass([CWCacheLRUScheme class]):[NSNumber numberWithDouble:1.0]};
-    self.scheme=@[NSStringFromClass([CWCacheLRUScheme class])];
+    self.scheme=@[[[CWCacheLRUScheme alloc] init]];
     self.ratio=@[@1.0];
     
     [self map];
     [self pq];
-    
+    self.countLimit=0;
+    self.memLimit=0;
     return self;
 }
 
@@ -50,12 +54,14 @@
         self.priority=priority;
         self.scheme=[schemes allKeys];
         NSMutableArray* mutableRatio = [[NSMutableArray alloc] initWithCapacity:self.scheme.count];
-        for(NSString* k in self.scheme){
+        for(id<CWCacheSchemeDelegate> k in self.scheme){
             [mutableRatio addObject:schemes[k]];
         }
         self.ratio = [mutableRatio copy];
         [self map];
         [self pq];
+        self.countLimit=0;
+        self.memLimit=0;
     }
     return self;
 }
@@ -73,16 +79,25 @@
     if(self){
         self.priority=priority;
         if(schemes.count==0){
-            self.scheme=@[NSStringFromClass([CWCacheLRUScheme class])];
+            self.scheme=@[[[CWCacheLRUScheme alloc] init]];
             self.ratio=@[@1.0];
         }
         else{
             //TODO: checking the sum of ratio is 1
             self.scheme=schemes;
+            for(id obj in self.scheme){
+                if(![[obj class] conformsToProtocol:@protocol(CWCacheSchemeDelegate)]){
+                    @throw [NSException exceptionWithName:@"Invalid input"
+                                                   reason:@"Input schemes contains object that doest not conform to the protocol"
+                                                 userInfo:NULL];
+                }
+            }
             self.ratio=ratio;
         }
         [self map];
         [self pq];
+        self.countLimit=0;
+        self.memLimit=0;
     }
     return self;
 }
@@ -131,6 +146,49 @@
     
     return nil;
 }
+
+
+- (void)setNumberLimit:(NSInteger)limit
+{
+    if(limit<0){
+        @throw [NSException exceptionWithName:@"Invalid input" reason:@"Limit should be non-negative number" userInfo:NULL];
+    }
+    self.countLimit=limit;
+    while(self.countLimit>self.map.count && self.pq.size>0){
+        CWEntity* entity = [self.pq pop];
+        [self.map removeObjectForKey:entity.entityId];
+    }
+}
+
+/**
+ *
+ */
+- (void)setMemoryLimit:(NSInteger)memLimit
+{
+    if(memLimit<0){
+        @throw [NSException exceptionWithName:@"Invalid input" reason:@"Limit should be non-negative number." userInfo:NULL];
+    }
+    self.memLimit=memLimit;
+    long memSize= malloc_size((__bridge const void *)(self.map));
+    while(memSize > self.memLimit && self.pq.size>0){
+        CWEntity* entity = [self.pq pop];
+        [self.map removeObjectForKey:entity.entityId];
+    }
+}
+
+/**
+ * @discussion free up half of the memory. Delete half of cached objects
+ *
+ */
+- (void)freeMemory
+{
+    NSInteger curSize = self.pq.size;
+    while(self.pq.size > (curSize+1)/2 && self.pq.size>0){
+        CWEntity* entity=[self.pq pop];
+        [self.map removeObjectForKey:entity.entityId];
+    }
+}
+
 
 #pragma mark - 
 #pragma mark init methods

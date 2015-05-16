@@ -14,17 +14,50 @@
 #import "CWCacheLRUScheme.h"
 #import "CWCacheLFUScheme.h"
 
+@class CWCacheRandomScheme;
+@class CWCacheLRUScheme;
+@class CWCacheLFUScheme;
+
 
 @interface CWCache : NSObject
 
 /**
+ * @abstract the enum of the priority. Lower priority will be
+ * discarded first.
+ */
+typedef enum
+{
+    low = 1,
+    defaultLevel,
+    high
+}
+CWCachePriority;
+
+
+/**
  * @abstract The priority queue 
  */
-@property (nonatomic)CWCachePriority priority;
+@property (nonatomic) CWCachePriority priority;
 
 - (instancetype)initWithPriority:(CWCachePriority)priority andSchemes:(NSDictionary*)schemes;
 
 - (instancetype)initWithPriority:(CWCachePriority)priority andSchemes:(NSArray*)schemes withScoreRatio:(NSArray*)ratio;
+
+/**
+ *
+ */
+- (void)setNumberLimit:(NSInteger)limit;
+
+/**
+ *
+ */
+- (void)setMemoryLimit:(NSInteger)memLimit;
+
+/**
+ * @discussion free up half of the memory. Delete half of cached objects
+ *
+ */
+- (void)freeMemory;
 
 /**
  * @brief add a new entity to the cache

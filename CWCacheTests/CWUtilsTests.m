@@ -86,7 +86,6 @@
 
 - (void)furtherTests:(NSNotification*)notification
 {
-    
     NSLog(@"received notification");
 //    CWImage* imageObject = [[CWImage alloc] init];
 //    imageObject.imageContent=@"IMAGE_CONTENT";
@@ -97,21 +96,31 @@
     entity.properties[@"imageContent"] = @"IMAGE_CONTENT";
     entity.properties[@"imageId"] = @"IMAGE_ID";
     entity.properties[@"imageInitDate"]=[NSDate date];
-    NSLog(@"self.utils context is %@",[self.utils getContextForFilename:@"CWImage"]);
+//    NSLog(@"self.utils context is %@",[self.utils getContextForFilename:@"CWImage"]);
     [self.utils insertEntity:entity];
     
     CWEntity* entity2 = [[CWEntity alloc] initWithClass:[CWImage class] andId:@"1b2"];
     entity2.properties[@"imageContent"] = @"IMAGE_CONTENT2";
     entity2.properties[@"imageId"] = @"IMAGE_ID2";
     entity2.properties[@"imageInitDate"]=[NSDate date];
-    NSLog(@"self.utils context is %@",[self.utils getContextForFilename:@"CWImage"]);
+//    NSLog(@"self.utils context is %@",[self.utils getContextForFilename:@"CWImage"]);
     [self.utils insertEntity:entity2];
-
+    
     
     CWImage* image = (CWImage*)[self.utils queryEntityClass:NSStringFromClass([CWImage class]) andId:@"1b2"];
-    NSLog(@"cwimage is %@,%@,%@,%@",image.cwid,image.imageContent,image.imageId,image.imageInitDate);
+//    NSLog(@"cwimage is %@,%@,%@,%@",image.cwid,image.imageContent,image.imageId,image.imageInitDate);
     XCTAssert(image);
+    
+    [self.utils deleteEntityWithEntityId:@"1b2" ofClassName:NSStringFromClass([CWImage class])];
+//    NSLog(@"after delete----");
+    image = (CWImage*)[self.utils queryEntityClass:NSStringFromClass([CWImage class]) andId:@"1b1"];
+//    NSLog(@"1b1 cwimage is %@,%@,%@,%@",image.cwid,image.imageContent,image.imageId,image.imageInitDate);
+    XCTAssert(image);
+    image = (CWImage*)[self.utils queryEntityClass:NSStringFromClass([CWImage class]) andId:@"1b2"];
+//    NSLog(@"1b2 cwimage is %@,%@,%@,%@",image.cwid,image.imageContent,image.imageId,image.imageInitDate);
+    XCTAssert(!image);
 }
+
 
 - (void)testExample {
     // This is an example of a functional test case.
