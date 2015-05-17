@@ -191,7 +191,7 @@ static CWUtils* instance;
  assumes the name is underlying item class
  
  */
-- (void)insertEntity:(CWEntity*)entity
+- (void)addNewEntity:(CWEntity*)entity
 {
     if(!entity || !entity.entityId || entity.entityId.length==0){
         return ;
@@ -210,11 +210,11 @@ static CWUtils* instance;
      insert into context
      */
     NSManagedObjectContext* context = [self getContextForFilename:entity.className];
-//    NSLog(@"item class is %@",entity.className);
+    //    NSLog(@"item class is %@",entity.className);
     NSEntityDescription* desc = nil;
     @try{
-         desc = [NSEntityDescription insertNewObjectForEntityForName:entity.className
-                                              inManagedObjectContext:context];
+        desc = [NSEntityDescription insertNewObjectForEntityForName:entity.className
+                                             inManagedObjectContext:context];
     }
     @catch(NSException* e){
         NSLog(@"exception is %@",e.reason);
@@ -229,16 +229,71 @@ static CWUtils* instance;
             continue;
         }
         id value = entity.properties[name];
-//        [propertyNames addObject:[NSString stringWithUTF8String:name]];
+        //        [propertyNames addObject:[NSString stringWithUTF8String:name]];
         [desc setValue:value forKey:name];
-//        NSLog(@"value is %@",value);
+        //        NSLog(@"value is %@",value);
     }
     free(properties);
     [context save:NULL];
 }
 
+/*
+ assumes the name is underlying item class
+ 
+ */
+- (void)insertEntity:(CWEntity*)entity
+{
+    if(!entity || !entity.entityId || entity.entityId.length==0){
+        return ;
+    }
+    NSManagedObjectContext* context = [self getContextForFilename:entity.className];
+    if(!context){
+        @throw [NSException exceptionWithName:@"NSManagedContext unavailable"
+                                       reason:@"Context unavailable, inserting entity failed!"
+                                     userInfo:NULL];
+    }
+    /*
+     check if it is there
+     */
+    NSArray* ret = [self queryEntityClass:entity.className andId:entity.entityId];
+    if(ret && ret.count>0){
+        for(NSInteger i=0;i<ret.count;i++){
+            NSManagedObject* object = [ret objectAtIndex:i];
+            [context deleteObject:object];
+        }
+    }
+    /*
+     insert into context
+     */
+//    NSLog(@"item class is %@",entity.className);
+    NSEntityDescription* desc = nil;
+    @try{
+         desc = [NSEntityDescription insertNewObjectForEntityForName:entity.className
+                                              inManagedObjectContext:context];
+        [desc setValue:entity.entityId forKey:ENTITY_ID_KEY];
+        unsigned int propertyCount = 0;
+        objc_property_t * properties = class_copyPropertyList(NSClassFromString(entity.className), &propertyCount);
+        for (unsigned int i = 0; i < propertyCount; ++i) {
+            objc_property_t property = properties[i];
+            NSString* name =[NSString stringWithUTF8String: property_getName(property)];
+            if([name isEqualToString:ENTITY_ID_KEY]){
+                continue;
+            }
+            id value = entity.properties[name];
+            //        [propertyNames addObject:[NSString stringWithUTF8String:name]];
+            [desc setValue:value forKey:name];
+            //        NSLog(@"value is %@",value);
+        }
+        free(properties);
+        [context save:NULL];
+    }
+    @catch(NSException* e){
+        NSLog(@"Inserting new entity to context: %@ failed with exception is %@",context, e.reason);
+    }
+}
 
-- (id)queryEntityClass:(NSString*)className andId:(NSString*)entityId
+
+- (NSArray*)queryEntityClass:(NSString*)className andId:(NSString*)entityId
 {
     if(!className || className.length==0){
         return nil;
@@ -261,9 +316,7 @@ static CWUtils* instance;
 //        CWImage* image = (CWImage*)[results objectAtIndex:i];
 //        NSLog(@"image %d is %@,%@,%@,%@",i,image.cwid,image.imageInitDate,image.imageId,image.imageContent);
 //    }
-    if(results.count==1){
-        return [results firstObject];
-    }
+    
     return results;
 }
 
@@ -280,12 +333,16 @@ static CWUtils* instance;
         //TODO: should throw exception;
         return;
     }
-    NSManagedObject* object = (NSManagedObject*)[self queryEntityClass:className andId:entityId];
-    [context deleteObject:object];
+    NSArray* arr = [self queryEntityClass:className andId:entityId];
+    if(arr){
+        for(int i=0;i<arr.count;i++){
+            [context deleteObject:[arr objectAtIndex:i]];
+        }
+    }
 }
 
 
-#pragma mark - 
+#pragma mark -
 #pragma mark init methods
 - (NSMutableDictionary*)documentMap
 {

@@ -16,8 +16,10 @@
 
 - (void)resetAllEntitiesMaintainOrderInCache:(CWCache*)cache;
 
-- (void)didQueryEntity:(CWEntity*)entity inCache:(CWCache*)cache;
+- (void)didQueryEntity:(CWEntity*)entity inCache:(CWCache*)cache atIndexInSchemes:(NSInteger)index;
 
-- (void)setInitialScoreToEntity:(CWEntity*)entity;
+- (void)setInitialScoreToEntity:(CWEntity*)entity inCache:(CWCache*)cache atIndexInSchemes:(NSInteger)index;
+
+
 
 @end

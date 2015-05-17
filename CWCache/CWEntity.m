@@ -20,24 +20,34 @@
 
 - (instancetype)initWithClass:(Class)objectClass andId:(NSString*)entityId
 {
+    if(!objectClass || !entityId || entityId.length==0){
+        @throw [NSException exceptionWithName:@"Invalid input" reason:@"One or more input parameters are invalid" userInfo:NULL];
+    }
     self = [super init];
     if(!self) return nil;
     self.className=NSStringFromClass(objectClass);
     self.avgScore=0;
     self.entityId=entityId;
     [self.properties removeAllObjects];
+    [self.score removeAllObjects];
     return self;
 }
 
-- (instancetype)initWithManagedObject:(NSManagedObject*)object andId:(NSString*)entityId
+- (instancetype)initWithManagedObject:(NSManagedObject*)object
+                                   andId:(NSString*)entityId
 {
+    if(!object || !entityId || entityId.length==0){
+        @throw [NSException exceptionWithName:@"Invalid input"
+                                       reason:@"One or more input parameters are invalid"
+                                     userInfo:NULL];
+    }
     self=[super init];
     if(!self) return nil;
     self.className = NSStringFromClass([object class]);
     self.avgScore = 0;
     self.entityId = entityId;
     [self.properties removeAllObjects];
-    
+    [self.score removeAllObjects];
     unsigned int propertyCount = 0;
     objc_property_t * properties = class_copyPropertyList(NSClassFromString(self.className), &propertyCount);
     

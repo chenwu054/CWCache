@@ -48,8 +48,8 @@
 - (NSManagedObjectContext*)getContextForFilename:(NSString*)filename;
 
 /**
- * @discussion Add a new entity to its UIManagedDocument. If an 
- * entity with the same CWID already exists, then it will abort addition and return.
+ * @discussion Add a new entity to its UIManagedDocument. If one or more
+ * entities with the same CWID already exist, then it will delete all of them first.
  * @param entity The CWEntity to be added to core data
  */
 - (void)insertEntity:(CWEntity*)entity;
@@ -61,7 +61,7 @@
  * @param className The name of the CWEntity.item class. This specifies which NSManagedContext to fetch the entity from
  * @param entityId The entity ID for the fetch.
  **/
-- (CWEntity*)queryEntityClass:(NSString*)className andId:(NSString*)entityId;
+- (NSArray*)queryEntityClass:(NSString*)className andId:(NSString*)entityId;
 
 /**
  * @discussion

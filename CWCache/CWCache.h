@@ -39,9 +39,16 @@ CWCachePriority;
  */
 @property (nonatomic) CWCachePriority priority;
 
-- (instancetype)initWithPriority:(CWCachePriority)priority andSchemes:(NSDictionary*)schemes;
+- (instancetype)initWithPriority:(CWCachePriority)priority
+                      andSchemes:(NSDictionary*)schemes
+                        forClass:(Class)className;
 
-- (instancetype)initWithPriority:(CWCachePriority)priority andSchemes:(NSArray*)schemes withScoreRatio:(NSArray*)ratio;
+- (instancetype)initWithPriority:(CWCachePriority)priority
+                      andSchemes:(NSArray*)schemes
+                  withScoreRatio:(NSArray*)ratio
+                        forClass:(Class)className;
+
+- (NSArray*)getSchemes;
 
 /**
  *
@@ -57,7 +64,7 @@ CWCachePriority;
  * @discussion free up half of the memory. Delete half of cached objects
  *
  */
-- (void)freeMemory;
+- (void)deleteHalf;
 
 /**
  * @brief add a new entity to the cache
