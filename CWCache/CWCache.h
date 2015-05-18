@@ -13,14 +13,15 @@
 #import "CWCacheRandomScheme.h"
 #import "CWCacheLRUScheme.h"
 #import "CWCacheLFUScheme.h"
+#import "CrazyCache.h"
 
-@class CWCacheRandomScheme;
-@class CWCacheLRUScheme;
-@class CWCacheLFUScheme;
+//@class CWCacheRandomScheme;
+//@class CWCacheLRUScheme;
+//@class CWCacheLFUScheme;
+
+
 
 @interface CWCache : NSObject
-
-
 
 /**
  * @param pq The min priority queue of the cache. 

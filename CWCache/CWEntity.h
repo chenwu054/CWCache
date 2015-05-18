@@ -20,6 +20,12 @@
 @property (nonatomic) NSNumber* avgScore;
 
 /**
+ * @discussion Convert the NSManagedObject to a new CWEntity
+ */
++ (CWEntity*)convertFromManagedObject:(NSManagedObject*)object;
+
+
+/**
  * @discussion This is for internal use only. 
  * Do not use this because it may potentially lead to exception
  * @param object The underlying NSManagedObject
@@ -35,10 +41,6 @@
  */
 - (instancetype)initWithClass:(Class)objectClass andId:(NSString*)entityId;
 
-/**
- * @discussion Convert the NSManagedObject to a new CWEntity
- */
-+ (CWEntity*)convertFromManagedObject:(NSManagedObject*)object;
 
 
 @end

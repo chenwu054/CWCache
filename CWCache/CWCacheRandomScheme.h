@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "CWCacheSchemeDelegate.h"
 
-@protocol CWCacheSchemeDelegate;
+//@protocol CWCacheSchemeDelegate;
 
 @interface CWCacheRandomScheme : NSObject <CWCacheSchemeDelegate>
 

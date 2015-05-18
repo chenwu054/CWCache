@@ -7,22 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CrazyCache.h"
 #import "CWCache.h"
+
 @class CWCache;
 
-/**
- * @abstract the enum of the priority. Lower priority will be
- * discarded first.
- */
-typedef enum
-{
-    low = 1,
-    defaultLevel,
-    high
-}
-CWCachePriority;
-
 @interface CWCacheManager : NSObject
+
 
 /**
  * @discussion Class method, returns the singleton CWCacheManager instance

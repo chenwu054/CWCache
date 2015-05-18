@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "CWCache.h"
-#import "CWEntity.h"
+//#import "CWEntity.h"
 
 @class CWCache;
 
