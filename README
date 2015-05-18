@@ -1,10 +1,40 @@
+
+The two-level cache includes an in-memory cache and core data storage for NSManagedObject.
+The main classes includes the following:
 1. CWCacheManager
-
 2. CWCache
-
-
 3. CWCacheEntity
+4. CWCacheSchemeDelegate(protocol)
+5. CWUtils
+
+1. CWCacheMananger:
+Singleton object. Only one instance for the entire application. It manages all the caches for different types of NSManagedObject. CWCacheManager's functionality should be further extended to include more lifecycle methods of CWCache's
+
+2. CWCache:
+Main class of the framework. It holds the in-memory storage of CWEntity, a wrapper class of NSManagedObject as well as calculating and aggregating the score for each CWEntity. The score calculation is maintained by a priority queue property. It embraces one or multiple CWCacheScheme Protocol instances. Different CWCacheSchemes can integrated with different ratio. It also abstracts the interaction with core data via CWUtils.
+
+3. CWCacheEntity:
+A wrapper class of NSManagedObject. It holds property's of different cache scheme scores as well as an average score of all the cache schemes combined at any predefined ratios. It also holds the ID of NSString type of the CWEntity. User is responsible for guarantee the uniqueness of entityId. Conflicting entityId would replace the CWEntity of the same entityId in the cache either in memory or in core data.
+
+4. CWCacheSchemeDelegate (Protocol)
+The protocol for CWCacheScheme, which contains the callback methods of CWCache. User can implement custom cache behavior.
+
+5. CWUtils:
+Singleton object. The utilty class for core data related methods, including creating UIManagedDocument, inserting, querying and deleting NSManagedObject from/to core data.
+
+Usage:
+1. create an NSManagedObject and add a property called "cwid" which corresponds to entityId
+2. Add all other properties to the NSManagedObject.
+3. Get CWCacheManager and get the Cache.
+4. Can specify various cache schemes or combination schemes
+5. Perform adding/querying CWEntity's to/from CWCache
 
 
-4. CWCacheSchemeDelegate protocol
+
+
+
+
+
+
+
 

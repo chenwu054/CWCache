@@ -34,7 +34,7 @@
 - (void)createManagedDocumentWithFilename:(NSString*)filename withCompletionHandler:(void(^)(BOOL success))handler;
 
 /**
- * @discussion Opens the
+ * @discussion Opens the UIManagedDocumentWithFilename
  *
  */
 - (UIManagedDocument*)openManagedDocumentWithFilename:(NSString*)filename

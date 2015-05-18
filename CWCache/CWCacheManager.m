@@ -32,6 +32,11 @@ static CWCacheManager* sharedInstace;
 - (CWCache*)getCacheForManagedObjectWithClassName:(Class)className
 {
     if(!className) return nil;
+    if([className isSubclassOfClass:[NSManagedObject class]]){
+        @throw [NSException exceptionWithName:@"Invalid type"
+                                       reason:@"Input class is not NSManagedObject subclass"
+                                     userInfo:NULL];
+    }
     NSString* name = NSStringFromClass(className);
     if(self.caches[name]){
         return self.caches[name];
@@ -48,9 +53,16 @@ static CWCacheManager* sharedInstace;
                                        reason:@"One or more of the input params are invalid "
                                      userInfo:NULL];
     }
+    if([className isSubclassOfClass:[NSManagedObject class]]){
+        @throw [NSException exceptionWithName:@"Invalid type"
+                                       reason:@"Input class is not NSManagedObject subclass"
+                                     userInfo:NULL];
+    }
+    if(self.caches[NSStringFromClass(className)]){
+        return self.caches[NSStringFromClass(className)];
+    }
     CWCache* cache = [[CWCache alloc] initWithPriority:priority andSchemes:schemes forClass:className];
     self.caches[NSStringFromClass(className)] = cache;
-    
     return cache;
 }
 

@@ -44,7 +44,7 @@
 - (void)testAddTwoElements
 {
     NSLog(@"----testing add elements-----");
-    CWPriorityQueue* q =[[CWPriorityQueue alloc] initWithCapacity:10];
+//    CWPriorityQueue* q =[[CWPriorityQueue alloc] initWithCapacity:10];
     /*
      NOTE!!! here dispatch_semaphore_create() should contain 0 as initial param
      Otherwise using 2 would cause semaphore not waiting!
@@ -77,7 +77,7 @@
 - (void)testAddMultipleElements
 {
     
-
+    
 }
 
 - (void)testPerformanceExample {

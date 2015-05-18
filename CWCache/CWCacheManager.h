@@ -28,7 +28,8 @@
 
 /**
  * @discussion A more specific intance method for creating and retrieving 
- * the cache for the NSManagedObject
+ * the cache for the NSManagedObject. If the cache already exists in the manager,
+ * the existing one will be returned and no schemes or priority will be updated.
  * @param className The Class of the underlying NSManagedObject
  * @param schemes The schemes and score ratio for the cache
  * @param priority The priority of the cache. Lowest priority gets freed up first.
@@ -41,5 +42,24 @@
  */
 - (void)freeMoreSpace;
 
+/**
+ * @discussion Deletes the caches of the specific NSManagedObject
+ * @param className The Class of the NSManagedObject
+ */
+- (void)deleteCacheOfClass:(Class)className;
 
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+

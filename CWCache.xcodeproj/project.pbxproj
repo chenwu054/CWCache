@@ -27,6 +27,8 @@
 		747583631B04FF7500DC06AB /* PriorityQueueTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 747583611B04FF7500DC06AB /* PriorityQueueTests.m */; };
 		747583641B04FF7500DC06AB /* CWUtilsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 747583621B04FF7500DC06AB /* CWUtilsTests.m */; };
 		7475836B1B05004500DC06AB /* CWImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 7475836A1B05004500DC06AB /* CWImage.m */; };
+		74AE372D1B09A4B800E62F91 /* CWEntityTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 74AE372C1B09A4B800E62F91 /* CWEntityTests.m */; };
+		74AE372F1B09A4DD00E62F91 /* CWCacheManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 74AE372E1B09A4DD00E62F91 /* CWCacheManagerTests.m */; };
 		74BD3B711B08D85B00B126A7 /* README in Resources */ = {isa = PBXBuildFile; fileRef = 74BD3B701B08D85B00B126A7 /* README */; };
 /* End PBXBuildFile section */
 
@@ -79,6 +81,8 @@
 		747583621B04FF7500DC06AB /* CWUtilsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CWUtilsTests.m; sourceTree = "<group>"; };
 		747583691B05004500DC06AB /* CWImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CWImage.h; path = CWCache/CWImage.h; sourceTree = "<group>"; };
 		7475836A1B05004500DC06AB /* CWImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CWImage.m; path = CWCache/CWImage.m; sourceTree = "<group>"; };
+		74AE372C1B09A4B800E62F91 /* CWEntityTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CWEntityTests.m; sourceTree = "<group>"; };
+		74AE372E1B09A4DD00E62F91 /* CWCacheManagerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CWCacheManagerTests.m; sourceTree = "<group>"; };
 		74BD3B701B08D85B00B126A7 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -152,7 +156,9 @@
 			children = (
 				747583371B04FEAC00DC06AB /* CWCacheTests.m */,
 				747583611B04FF7500DC06AB /* PriorityQueueTests.m */,
+				74AE372C1B09A4B800E62F91 /* CWEntityTests.m */,
 				747583621B04FF7500DC06AB /* CWUtilsTests.m */,
+				74AE372E1B09A4DD00E62F91 /* CWCacheManagerTests.m */,
 				747583351B04FEAC00DC06AB /* Supporting Files */,
 			);
 			path = CWCacheTests;
@@ -331,6 +337,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				74AE372D1B09A4B800E62F91 /* CWEntityTests.m in Sources */,
+				74AE372F1B09A4DD00E62F91 /* CWCacheManagerTests.m in Sources */,
 				747583381B04FEAC00DC06AB /* CWCacheTests.m in Sources */,
 				747583641B04FF7500DC06AB /* CWUtilsTests.m in Sources */,
 				747583631B04FF7500DC06AB /* PriorityQueueTests.m in Sources */,
