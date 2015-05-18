@@ -61,6 +61,16 @@
     [self percolateUpAtIndex:entity.index];
 }
 
+
+- (CWEntity*)entityAtIndex:(NSInteger)index
+{
+    if(index<0 || index >=self.queue.count){
+        return nil;
+    }
+    return [self.queue objectAtIndex:index];
+}
+
+
 - (void)percolateUpAtIndex:(NSInteger)index
 {
     if(index<0 || index>=self.queue.count){

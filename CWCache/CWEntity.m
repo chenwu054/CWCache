@@ -64,24 +64,25 @@
     return self;
 }
 
-- (id)convertToManagedObject
++ (CWEntity*)convertFromManagedObject:(NSManagedObject*)object
 {
-    if(!self.className)
+    if(!object){
         return nil;
-    id ret = [[NSClassFromString(self.className) alloc] init];
+    }
+    CWEntity* entity = [[CWEntity alloc] initWithClass:[object class] andId:nil];
     unsigned int propertyCount = 0;
-    objc_property_t * properties = class_copyPropertyList(NSClassFromString(self.className), &propertyCount);
+    objc_property_t * properties = class_copyPropertyList([object class], &propertyCount);
     for (unsigned int i = 0; i < propertyCount; ++i) {
         objc_property_t property = properties[i];
         NSString* propertyName =[NSString stringWithUTF8String: property_getName(property)];
         if([propertyName isEqualToString:ENTITY_ID_KEY]){
-            [ret setValue:self.entityId forKey:ENTITY_ID_KEY];
+            entity.entityId=[object valueForKey:ENTITY_ID_KEY];
             continue;
         }
-        [ret setValue:self.properties[propertyName] forKey:propertyName];
+        entity.properties[propertyName]=[object valueForKey:propertyName];
     }
     free(properties);
-    return ret;
+    return entity;
 }
 
 #pragma mark - 

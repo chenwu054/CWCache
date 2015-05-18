@@ -14,12 +14,20 @@
 
 @protocol CWCacheSchemeDelegate <NSObject>
 
-- (void)resetAllEntitiesMaintainOrderInCache:(CWCache*)cache;
+@required
 
 - (void)didQueryEntity:(CWEntity*)entity inCache:(CWCache*)cache atIndexInSchemes:(NSInteger)index;
 
 - (void)setInitialScoreToEntity:(CWEntity*)entity inCache:(CWCache*)cache atIndexInSchemes:(NSInteger)index;
 
 
+@optional
+
+
+//- (void)resetAllEntitiesMaintainOrderInCache:(CWCache*)cache;
+
+- (void)willPopEntityFromCache:(CWCache*)cache;
+
+- (void)didPopEntity:(CWEntity*)entity fromCache:(CWCache*)cache;
 
 @end

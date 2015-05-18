@@ -38,6 +38,12 @@
 - (void)updateEntity:(CWEntity*)entity;
 
 /**
+ * @discussion Returns the CWEntity at that index
+ * @param index The index of the CWEntity to be returned
+ */
+- (CWEntity*)entityAtIndex:(NSInteger)index;
+
+/**
  * @abstract Moves the CWEntity object up in the priority queue given its avgScore is lower
  * @param index The index of CWEntity to be moved up
  */

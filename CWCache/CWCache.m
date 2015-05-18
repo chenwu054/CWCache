@@ -15,7 +15,7 @@
 @interface CWCache ()
 
 @property (nonatomic) NSMutableDictionary* map;
-@property (nonatomic) CWPriorityQueue* pq;
+
 @property (nonatomic) NSInteger countLimit;
 @property (nonatomic) NSInteger memLimit;
 @property (nonatomic) NSString* className;
@@ -58,9 +58,37 @@
         self.className=NSStringFromClass(className);
         self.scheme=[schemes allKeys];
         NSMutableArray* mutableRatio = [[NSMutableArray alloc] initWithCapacity:self.scheme.count];
-        for(id<CWCacheSchemeDelegate> k in self.scheme){
+        double ratioSum=0;
+        NSNumber* ratio =nil;
+        /*
+         normalize ratio
+         */
+        for(id k in self.scheme){
+            if(![k conformsToProtocol:@protocol(CWCacheSchemeDelegate) ]){
+                @throw [NSException exceptionWithName:@"Unexpected type"
+                                               reason:@"Schemes key does not conform to CWCacheSchemeDelegate protocol"
+                                             userInfo:NULL];
+            }
+            ratio = schemes[k];
+            if(![ratio isKindOfClass:[NSNumber class]]){
+                @throw [NSException exceptionWithName:@"Unexpected type"
+                                               reason:@"Ratio is not NSNumber type"
+                                             userInfo:NULL];
+            }
+            double r = [(NSNumber*)schemes[k] doubleValue];
+            if(r<0){
+                @throw [NSException exceptionWithName:@"Invalid ratio value"
+                                               reason:@"Negative ratio value is not allowed"
+                                             userInfo:NULL];
+            }
+            ratioSum += r;
             [mutableRatio addObject:schemes[k]];
         }
+        for(int i=0;i<mutableRatio.count;i++){
+            double cur = [(NSNumber*)[mutableRatio objectAtIndex:i] doubleValue];
+            [mutableRatio replaceObjectAtIndex:i withObject:[NSNumber numberWithDouble:(cur/ratioSum)]];
+        }
+        
         self.ratio = [mutableRatio copy];
         [self map];
         [self pq];
@@ -98,7 +126,30 @@
                                                  userInfo:NULL];
                 }
             }
-            self.ratio=ratio;
+            /*
+             normalize;
+             */
+            double ratioSum=0.0;
+            for(int i =0;i<ratio.count;i++){
+                if(![[ratio objectAtIndex:i] isKindOfClass:[NSNumber class]]){
+                    @throw [NSException exceptionWithName:@"Unexpected type"
+                                                   reason:@"Ratio is not NSNumber type"
+                                                 userInfo:NULL];
+                }
+                double r = [(NSNumber*)[ratio objectAtIndex:i] doubleValue];
+                if(r<0){
+                    @throw [NSException exceptionWithName:@"Invalid ratio value"
+                                                   reason:@"Negative ratio value is not allowed"
+                                                 userInfo:NULL];
+                }
+                ratioSum+=r;
+            }
+            NSMutableArray* arr =[[NSMutableArray alloc] init];
+            for(int i=0;i<ratio.count;i++){
+                double number =[(NSNumber*)[ratio objectAtIndex:i] doubleValue];
+                [arr addObject:[NSNumber numberWithDouble:(number/ratioSum)]];
+            }
+            self.ratio = [arr copy];
         }
         [self map];
         [self pq];
@@ -141,8 +192,21 @@
     
 //  Delete entities when the current cound exceeds the countLimit;
     while(self.pq.size > self.countLimit){
+        for(int i=0;i<self.scheme.count;i++){
+            id<CWCacheSchemeDelegate> scheme = [self.scheme objectAtIndex:i];
+            if([scheme respondsToSelector:@selector(willPopEntityFromCache:)]){
+                [scheme willPopEntityFromCache:self];
+            }
+        }
         CWEntity* toDelete = [self.pq pop];
         [self.map removeObjectForKey:toDelete.entityId];
+        
+        for(int i=0;i<self.scheme.count;i++){
+            id<CWCacheSchemeDelegate> scheme = [self.scheme objectAtIndex:i];
+            if([scheme respondsToSelector:@selector(didPopEntity:fromCache:)]){
+                [scheme didPopEntity:toDelete fromCache:self];
+            }
+        }
     }
 }
 
@@ -226,7 +290,7 @@
 - (void)deleteHalf
 {
     NSInteger curSize = self.pq.size;
-    while(self.pq.size > (curSize+1)/2 && self.pq.size>0){
+    while(self.pq.size > MIN((curSize+1)/2,self.countLimit) && self.pq.size>0){
         CWEntity* entity=[self.pq pop];
         [self.map removeObjectForKey:entity.entityId];
     }

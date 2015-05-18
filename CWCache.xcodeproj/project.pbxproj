@@ -127,24 +127,10 @@
 			isa = PBXGroup;
 			children = (
 				747583651B04FF7D00DC06AB /* schemes */,
-				747583451B04FF4B00DC06AB /* CWCacheManager.h */,
-				747583461B04FF4B00DC06AB /* CWCacheManager.m */,
-				747583471B04FF4B00DC06AB /* CWCache.h */,
-				747583481B04FF4B00DC06AB /* CWCache.m */,
-				747583491B04FF4B00DC06AB /* CWEntity.h */,
-				7475834A1B04FF4B00DC06AB /* CWEntity.m */,
-				7475834D1B04FF4B00DC06AB /* CWPriorityQueue.h */,
-				7475834E1B04FF4B00DC06AB /* CWPriorityQueue.m */,
-				7475834F1B04FF4B00DC06AB /* CWUtils.h */,
-				747583501B04FF4B00DC06AB /* CWUtils.m */,
+				74BD3B731B096A8300B126A7 /* main classes */,
 				747583441B04FF4B00DC06AB /* CrazyCache.h */,
-				7475831C1B04FEAC00DC06AB /* AppDelegate.h */,
-				7475831D1B04FEAC00DC06AB /* AppDelegate.m */,
-				747583221B04FEAC00DC06AB /* ViewController.h */,
-				747583231B04FEAC00DC06AB /* ViewController.m */,
-				747583251B04FEAC00DC06AB /* Main.storyboard */,
+				74BD3B721B0967DA00B126A7 /* app classes */,
 				747583281B04FEAC00DC06AB /* Images.xcassets */,
-				7475832A1B04FEAC00DC06AB /* LaunchScreen.xib */,
 				7475831F1B04FEAC00DC06AB /* CWCache.xcdatamodeld */,
 				747583181B04FEAC00DC06AB /* Supporting Files */,
 				747583431B04FF1500DC06AB /* CWCache.pch */,
@@ -192,6 +178,36 @@
 				7475835D1B04FF5B00DC06AB /* CWCacheRandomScheme.m */,
 			);
 			name = schemes;
+			sourceTree = "<group>";
+		};
+		74BD3B721B0967DA00B126A7 /* app classes */ = {
+			isa = PBXGroup;
+			children = (
+				7475831C1B04FEAC00DC06AB /* AppDelegate.h */,
+				7475831D1B04FEAC00DC06AB /* AppDelegate.m */,
+				747583221B04FEAC00DC06AB /* ViewController.h */,
+				747583231B04FEAC00DC06AB /* ViewController.m */,
+				747583251B04FEAC00DC06AB /* Main.storyboard */,
+				7475832A1B04FEAC00DC06AB /* LaunchScreen.xib */,
+			);
+			name = "app classes";
+			sourceTree = "<group>";
+		};
+		74BD3B731B096A8300B126A7 /* main classes */ = {
+			isa = PBXGroup;
+			children = (
+				747583451B04FF4B00DC06AB /* CWCacheManager.h */,
+				747583461B04FF4B00DC06AB /* CWCacheManager.m */,
+				747583471B04FF4B00DC06AB /* CWCache.h */,
+				747583481B04FF4B00DC06AB /* CWCache.m */,
+				747583491B04FF4B00DC06AB /* CWEntity.h */,
+				7475834A1B04FF4B00DC06AB /* CWEntity.m */,
+				7475834D1B04FF4B00DC06AB /* CWPriorityQueue.h */,
+				7475834E1B04FF4B00DC06AB /* CWPriorityQueue.m */,
+				7475834F1B04FF4B00DC06AB /* CWUtils.h */,
+				747583501B04FF4B00DC06AB /* CWUtils.m */,
+			);
+			name = "main classes";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

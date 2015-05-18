@@ -11,7 +11,6 @@
 
 @interface CWEntity : NSObject
 
-@property (nonatomic) Class objectClass;
 @property (nonatomic) NSString* className;
 @property (nonatomic) NSMutableDictionary* properties;
 @property (nonatomic) NSString* entityId;
@@ -21,7 +20,10 @@
 @property (nonatomic) NSNumber* avgScore;
 
 /**
- * @discussion May NOT work, since can not set property directly to NSManagedObject
+ * @discussion This is for internal use only. 
+ * Do not use this because it may potentially lead to exception
+ * @param object The underlying NSManagedObject
+ * @param entityId The ID associdated with the object
  */
 - (instancetype)initWithManagedObject:(NSManagedObject*)object
                                    andId:(NSString*)entityId;
@@ -34,9 +36,9 @@
 - (instancetype)initWithClass:(Class)objectClass andId:(NSString*)entityId;
 
 /**
- * @discussion May NOT work
+ * @discussion Convert the NSManagedObject to a new CWEntity
  */
-- (id)convertToManagedObject;
++ (CWEntity*)convertFromManagedObject:(NSManagedObject*)object;
 
 
 @end

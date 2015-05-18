@@ -18,31 +18,41 @@
 @class CWCacheLRUScheme;
 @class CWCacheLFUScheme;
 
-
 @interface CWCache : NSObject
 
-/**
- * @abstract the enum of the priority. Lower priority will be
- * discarded first.
- */
-typedef enum
-{
-    low = 1,
-    defaultLevel,
-    high
-}
-CWCachePriority;
 
+
+/**
+ * @param pq The min priority queue of the cache. 
+ * The top CWEntity is of the lowest avgScore.
+ */
+@property (nonatomic) CWPriorityQueue* pq;
 
 /**
  * @abstract The priority queue 
  */
-@property (nonatomic) CWCachePriority priority;
+@property (nonatomic) CWCachePriority priority; 
 
+/**
+ * @discussion Initiates a new CWCache with the given parameters.
+ * The given ratios will be normalized.
+ * @param priority The priority of the cache
+ * @param schemes The schemes to be considered. The values are the ratios
+ * pertaining to the schemes
+ * @param className The Class of the underlying NSManagedObject
+ */
 - (instancetype)initWithPriority:(CWCachePriority)priority
                       andSchemes:(NSDictionary*)schemes
                         forClass:(Class)className;
 
+/**
+ * @discussion Initiates a new CWCache with the given parameters.
+ * The given ratios will be normalized
+ * @param priority The priority of the cache
+ * @param schemes The schemes to be considered
+ * @param ratio The ratio between the schemes for calculating the avgScore
+ * @param className The Class of the underlying NSManagedObject
+ */
 - (instancetype)initWithPriority:(CWCachePriority)priority
                       andSchemes:(NSArray*)schemes
                   withScoreRatio:(NSArray*)ratio
@@ -51,12 +61,14 @@ CWCachePriority;
 - (NSArray*)getSchemes;
 
 /**
- *
+ * @discussion Sets the limit of the number of CWEntity's should be held in the cache.
+ * 
+ * @param limit The limit of the number of CWEntity's
  */
 - (void)setNumberLimit:(NSInteger)limit;
 
 /**
- *
+ * TODO: This is not implemented
  */
 - (void)setMemoryLimit:(NSInteger)memLimit;
 
@@ -67,11 +79,16 @@ CWCachePriority;
 - (void)deleteHalf;
 
 /**
- * @brief add a new entity to the cache
+ * @discussion Add a new entity to the cache. 
+ * If there is already one CWEntity in the cache, it will replace 
+ * the entity and replace the entity in core data. If for any 
+ * reason there are more than one entity in core data, all 
+ * entities with the same CWID will be removed and the new entity
+ * will be added.
  * @param entity the CWEntity to be added
  * @param entityId the ID of added entity
  */
-- (void)addEntity:(CWEntity*)entity withId:(NSString*)entityId;
+- (void)addEntity:(CWEntity*)entity;
 
 /**
  * @discussion this query first tries to find in the cache. If not found, it will try to find in core data

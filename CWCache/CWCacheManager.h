@@ -10,14 +10,44 @@
 #import "CWCache.h"
 @class CWCache;
 
+/**
+ * @abstract the enum of the priority. Lower priority will be
+ * discarded first.
+ */
+typedef enum
+{
+    low = 1,
+    defaultLevel,
+    high
+}
+CWCachePriority;
+
 @interface CWCacheManager : NSObject
 
+/**
+ * @discussion Class method, returns the singleton CWCacheManager instance
+ */
 + (instancetype)sharedInstance;
 
-
-
+/**
+ * @discussion Creat or retrieve the cache given the NSManagedObject class
+ * @param className The Class of the underlying NSManagedObject
+ */
 - (CWCache*)getCacheForManagedObjectWithClassName:(Class)className;
 
+/**
+ * @discussion A more specific intance method for creating and retrieving 
+ * the cache for the NSManagedObject
+ * @param className The Class of the underlying NSManagedObject
+ * @param schemes The schemes and score ratio for the cache
+ * @param priority The priority of the cache. Lowest priority gets freed up first.
+ */
+- (CWCache*)getCacheForManagedObjectWithClassName:(Class)className withSchemes:(NSDictionary*)schemes andPriority:(CWCachePriority)priority;
+
+/**
+ * @discussion Removes cache strong references to free up memory.
+ * Lowest priority caches are removed first.
+ */
 - (void)freeMoreSpace;
 
 

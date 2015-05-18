@@ -10,6 +10,7 @@
 @interface CWCacheManager ()
 
 @property (nonatomic) NSMutableDictionary* caches;
+@property (nonatomic) dispatch_queue_t queue;
 
 @end
 
@@ -22,6 +23,7 @@ static CWCacheManager* sharedInstace;
         static dispatch_once_t predicate;
         dispatch_once(&predicate, ^{
             sharedInstace = [[CWCacheManager alloc] init];
+            [sharedInstace caches];
         });
     }
     return sharedInstace;
@@ -30,18 +32,35 @@ static CWCacheManager* sharedInstace;
 - (CWCache*)getCacheForManagedObjectWithClassName:(Class)className
 {
     if(!className) return nil;
-    if(self.caches[NSStringFromClass(className)]){
-        return self.caches[NSStringFromClass(className)];
+    NSString* name = NSStringFromClass(className);
+    if(self.caches[name]){
+        return self.caches[name];
     }
-    CWCache* cache = [[CWCache alloc] initWithPriority:defaultLevel andSchemes:nil];
-    self.caches[NSStringFromClass(className)]=cache;
+    CWCache* cache = [[CWCache alloc]initWithPriority:defaultLevel andSchemes:nil forClass:className];
+    self.caches[name]=cache;
     return cache;
 }
 
+- (CWCache*)getCacheForManagedObjectWithClassName:(Class)className withSchemes:(NSDictionary*)schemes andPriority:(CWCachePriority)priority
+{
+    if(!className || !priority || priority>3 || priority<=0){
+        @throw [NSException exceptionWithName:@"Invalid input"
+                                       reason:@"One or more of the input params are invalid "
+                                     userInfo:NULL];
+    }
+    CWCache* cache = [[CWCache alloc] initWithPriority:priority andSchemes:schemes forClass:className];
+    self.caches[NSStringFromClass(className)] = cache;
+    
+    return cache;
+}
+
+/*
+ TODO: This method needs to be improved.
+ Removes the reference to the caches from the lowest priority
+ */
 - (void)freeMoreSpace
 {
     if(self.caches.count==0) return;
-    
     NSString* cacheName=nil;
     for(NSString* key in self.caches){
         if(!cacheName){
