@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
+#import "CWEntity.h"
+#import "CWImage.h"
 
 @interface CWEntityTests : XCTestCase
 
@@ -24,6 +26,18 @@
     // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
 }
+
+- (void)testCreatingEntity
+{
+    CWEntity* entity = [[CWEntity alloc] initWithClass:[CWImage class] andId:@"112"];
+    entity.properties[@"imageContent"]=@"IMAGE_CONTENT";
+    entity.properties[@"imageInitDate"]=[NSDate date];
+    entity.properties[@"imageId"] = @"IMAGE_ID";
+    NSLog(@"%@",entity);
+    XCTAssert(entity);
+}
+
+
 
 - (void)testExample {
     // This is an example of a functional test case.

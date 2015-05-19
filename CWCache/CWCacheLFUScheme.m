@@ -10,7 +10,16 @@
 
 @implementation CWCacheLFUScheme
 
+@synthesize count;
 
+- (instancetype)init
+{
+    self = [super init];
+    if(self){
+        self.count=1;
+    }
+    return self;
+}
 
 - (void)didQueryEntity:(CWEntity*)entity
                inCache:(CWCache*)cache
@@ -26,8 +35,12 @@
         NSLog(@"!WARNING: Skipping updating scheme score in LRU scheme");
         return;
     }
+    NSLog(@"Calling didQueryEntity in LFU Scheme");
     NSMutableArray* arr =  entity.score;
     NSNumber *count = [arr objectAtIndex:index];
+    if(self.count<[count integerValue]+1){
+        self.count=[count integerValue]+1;
+    }
     [arr replaceObjectAtIndex:index withObject:[NSNumber numberWithInteger:[count integerValue]+1]];
 }
 
@@ -53,13 +66,28 @@
         [entity.score replaceObjectAtIndex:index
                                 withObject:[NSNumber numberWithInteger:1]];
     }
+    
+    NSLog(@"Calling setInitialScoreToEntity in LFU Scheme");
 }
 
 
+- (id)copyWithZone:(NSZone*)zone
+{
+    id<CWCacheSchemeDelegate> copy = [[[self class] allocWithZone:zone] init];
+    
+    return  copy;
+}
 
-
+- (BOOL)isEqual:(id)object
+{
+    return [object isMemberOfClass:[self class]];
+}
 
 @end
+
+
+
+
 
 
 

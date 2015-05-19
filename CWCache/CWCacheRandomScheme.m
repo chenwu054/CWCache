@@ -14,7 +14,16 @@
 
 @implementation CWCacheRandomScheme
 
+@synthesize count;
 
+- (instancetype)init
+{
+    self = [super init];
+    if(self){
+        self.count=1;
+    }
+    return self;
+}
 - (void)didQueryEntity:(CWEntity*)entity inCache:(CWCache*)cache atIndexInSchemes:(NSInteger)index
 {
     if(!entity || !cache || index<0){
@@ -27,7 +36,7 @@
         NSLog(@"!WARNING: Skipping updating scheme score in random scheme");
         return;
     }
-    
+    NSLog(@"Calling didQueryEntity in Random Scheme");
 }
 
 - (void)setInitialScoreToEntity:(CWEntity*)entity inCache:(CWCache*)cache atIndexInSchemes:(NSInteger)index
@@ -51,6 +60,7 @@
         [entity.score replaceObjectAtIndex:index
                                 withObject:[NSNumber numberWithInteger:[count integerValue]+1]];
     }
+    NSLog(@"Calling setInitialScoreToEntity in Random Scheme");
 }
 
 /*
@@ -70,11 +80,28 @@
         }
     }
     [q updateEntity:entity];
+    NSLog(@"Calling willPopEntityFromCache in Random scheme");
 }
 
+- (id)copyWithZone:(NSZone*)zone
+{
+    id<CWCacheSchemeDelegate> copy = [[[self class] allocWithZone:zone] init];
+    return  copy;
+}
 
+- (BOOL)isEqual:(id)object
+{
+    return [object isMemberOfClass:[self class]];
+}
 
 @end
+
+
+
+
+
+
+
 
 
 

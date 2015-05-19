@@ -9,11 +9,13 @@
 #import "CWCacheLRUScheme.h"
 @interface CWCacheLRUScheme ()
 
-@property (atomic) NSInteger count;
+
 
 @end
 
 @implementation CWCacheLRUScheme
+
+@synthesize count;
 
 - (instancetype)init
 {
@@ -37,6 +39,7 @@
         NSLog(@"!WARNING: Skipping updating scheme score in LRU scheme");
         return;
     }
+    NSLog(@"Calling didQueryEntity in LRU Scheme");
     NSMutableArray* arr =  entity.score;
     self.count = self.count+1;
     [arr replaceObjectAtIndex:index withObject:[NSNumber numberWithInteger:self.count]];
@@ -51,12 +54,12 @@
         return;
     }
     else if(entity.score.count <=index){
-        [entity.score addObject:[NSNumber numberWithInteger:self.count++]];
+        [entity.score addObject:[NSNumber numberWithInteger:++self.count]];
     }
     else{
-        [entity.score replaceObjectAtIndex:index withObject:[NSNumber numberWithInteger:self.count++]];
+        [entity.score replaceObjectAtIndex:index withObject:[NSNumber numberWithInteger:++self.count]];
     }
-    
+    NSLog(@"Calling setInitialScoreToEntity in LRU Scheme");
 }
 
 - (void)willPopEntityFromCache:(CWCache*)cache
@@ -65,5 +68,28 @@
 }
 
 
+- (id)copyWithZone:(NSZone*)zone
+{
+    CWCacheLRUScheme *copy = [[[self class] allocWithZone:zone] init];
+    copy.count=self.count;
+    return copy;
+}
+
+- (BOOL)isEqual:(id)object
+{
+    return [object isMemberOfClass:[self class]];
+}
+
 
 @end
+
+
+
+
+
+
+
+
+
+
+

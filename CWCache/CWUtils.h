@@ -76,7 +76,11 @@
  */
 - (void)deleteEntityWithEntityId:(NSString*)entityId ofClassName:(NSString*)className;
 
-
+/**
+ * @discussion
+ * @param 
+ */
+- (BOOL)isContextReady:(Class)className;
 
 @end
 

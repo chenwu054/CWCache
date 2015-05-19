@@ -38,6 +38,13 @@ static CWUtils* instance;
         static dispatch_once_t predicate;
         dispatch_once(&predicate, ^{
             instance=[[CWUtils alloc] init];
+            //load all the documents 
+            NSString* urlString = [[instance getDocumentURL] URLByAppendingPathComponent:[instance relativeFilename:@""]].path;
+            NSLog(@"Utils url is %@",urlString);
+            NSArray* arr = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:urlString error:NULL];
+            for(NSString* file in arr){
+                [instance openManagedDocumentWithFilename:file withCompletionHandler:nil];
+            }
         });
     }
     return instance;
@@ -137,6 +144,15 @@ static CWUtils* instance;
 }
 
 
+- (BOOL)isContextReady:(Class)className
+{
+    BOOL ret = YES;
+    if(!self.contextMap[NSStringFromClass(className)]){
+        ret=NO;
+        [self getContextForFilename:NSStringFromClass(className)];
+    }
+    return ret;
+}
 - (NSManagedObjectContext*)getContextForFilename:(NSString*)filename
 {
     if(!filename || filename.length==0)
@@ -153,7 +169,8 @@ static CWUtils* instance;
                                                               self.contextMap[filename] = document.managedObjectContext;
                                                               
                                                               NSLog(@"context is %@",self.contextMap[filename]);
-                                                              [[NSNotificationCenter defaultCenter] postNotificationName:@"furtherTestNotification" object:self];
+//                                                              [[NSNotificationCenter defaultCenter] postNotificationName:@"furtherTestNotification" object:self];
+                                                              [[NSNotificationCenter defaultCenter] postNotificationName:@"furtherTestNotification" object:self userInfo:@{@"className":filename}];
                                                           }
                                                           
 //                                                          dispatch_semaphore_signal(self.semaphore);

@@ -14,6 +14,12 @@
 
 @protocol CWCacheSchemeDelegate <NSObject>
 
+/**
+ * @param count This is intended for accumulated count.
+ * It can also be used as scale of this particular scheme
+ */
+@property (nonatomic) NSInteger count;
+
 @required
 
 - (void)didQueryEntity:(CWEntity*)entity inCache:(CWCache*)cache atIndexInSchemes:(NSInteger)index;

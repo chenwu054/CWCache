@@ -30,6 +30,8 @@ Usage:
 5. Perform adding/querying CWEntity's to/from CWCache
 
 
+NOTICE!!:
+When using combination of schemes, must pay attention to the consistency of the scale between various schemes. For example, scale of LRU is changing all the time. Thus when using a combination of LRU and LFU, the scales may be unbalanced leading to incorrect avgScore.
 
 
 

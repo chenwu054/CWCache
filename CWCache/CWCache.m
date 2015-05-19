@@ -54,7 +54,13 @@
 {
     self=[super init];
     if(self){
-        self.priority=priority;
+        if(!priority || priority<1 || priority>3){
+            self.priority=defaultLevel;
+        }
+        else{
+            self.priority=priority;
+        }
+        
         self.className=NSStringFromClass(className);
         self.scheme=[schemes allKeys];
         NSMutableArray* mutableRatio = [[NSMutableArray alloc] initWithCapacity:self.scheme.count];
@@ -63,13 +69,13 @@
         /*
          normalize ratio
          */
-        for(id k in self.scheme){
+        for(id k in schemes){
             if(![k conformsToProtocol:@protocol(CWCacheSchemeDelegate) ]){
                 @throw [NSException exceptionWithName:@"Unexpected type"
                                                reason:@"Schemes key does not conform to CWCacheSchemeDelegate protocol"
                                              userInfo:NULL];
             }
-            ratio = schemes[k];
+            ratio = [schemes valueForKey:k];
             if(![ratio isKindOfClass:[NSNumber class]]){
                 @throw [NSException exceptionWithName:@"Unexpected type"
                                                reason:@"Ratio is not NSNumber type"
@@ -110,7 +116,12 @@
     }
     self=[super init];
     if(self){
-        self.priority=priority;
+        if(!priority || priority<1 || priority>3){
+            self.priority=defaultLevel;
+        }
+        else{
+            self.priority=priority;
+        }
         self.className=NSStringFromClass(className);
         if(schemes.count==0){
             self.scheme=@[[[CWCacheLRUScheme alloc] init]];
@@ -177,7 +188,7 @@
     for(NSInteger i=0;i<self.scheme.count;i++){
         id<CWCacheSchemeDelegate> scheme = [self.scheme objectAtIndex:i];
         [scheme setInitialScoreToEntity:entity inCache:self atIndexInSchemes:i];
-        sum += [(NSNumber*)[self.ratio objectAtIndex:i] doubleValue] * [(NSNumber*)[entity.score objectAtIndex:i] doubleValue];
+        sum += [(NSNumber*)[self.ratio objectAtIndex:i] doubleValue] * [(NSNumber*)[entity.score objectAtIndex:i] doubleValue] / scheme.count;
     }
     entity.avgScore= [NSNumber numberWithDouble:sum];
     
@@ -191,7 +202,7 @@
     self.map[entity.entityId]=entity;
     
 //  Delete entities when the current cound exceeds the countLimit;
-    while(self.pq.size > self.countLimit){
+    while(self.pq.size > self.countLimit && self.countLimit > 0){
         for(int i=0;i<self.scheme.count;i++){
             id<CWCacheSchemeDelegate> scheme = [self.scheme objectAtIndex:i];
             if([scheme respondsToSelector:@selector(willPopEntityFromCache:)]){
@@ -219,11 +230,12 @@
         for(int i=0;i<self.scheme.count;i++){
             id<CWCacheSchemeDelegate> scheme = [self.scheme objectAtIndex:i];
             [scheme didQueryEntity:entity inCache:self atIndexInSchemes:i];
-            sum += [(NSNumber*)[self.ratio objectAtIndex:i] doubleValue] * [(NSNumber*)[entity.score objectAtIndex:i] doubleValue];
+            sum += [(NSNumber*)[self.ratio objectAtIndex:i] doubleValue] * [(NSNumber*)[entity.score objectAtIndex:i] doubleValue] / scheme.count;
         }
         entity.avgScore= [NSNumber numberWithDouble:sum];
         //update the priority queue
         [self.pq updateEntity:entity];
+        NSLog(@"HIT MEMORY");
         return entity;
     }
     //2. get it from core data
@@ -243,6 +255,7 @@
             //add to priority queue;
             [self.pq addEntity:newEntity];
             self.map[newEntity.entityId] = newEntity;
+            NSLog(@"FETCH FROM CORE DATA");
             return newEntity;
         }
     }
@@ -296,6 +309,12 @@
     }
 }
 
+- (NSString*)description
+{
+    NSString* ret = [NSString stringWithFormat:@"CWCache is:[(pq:%@),(map.count:%lu),(priority:%u),(schemes:%@),(ratios:%@),(Class:%@),(countLimit:%ld)",self.pq,(unsigned long)self.map.count,self.priority,self.scheme,self.ratio,self.className,(long)self.countLimit];
+    
+    return  ret;
+}
 
 #pragma mark - 
 #pragma mark init methods

@@ -13,4 +13,6 @@
 
 @interface CWCacheLFUScheme : NSObject <CWCacheSchemeDelegate>
 
+//@property (nonatomic) NSInteger maxCount;
+
 @end

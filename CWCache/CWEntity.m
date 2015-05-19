@@ -85,7 +85,16 @@
     return entity;
 }
 
-#pragma mark - 
+- (NSString*)description
+{
+    NSString* ret = [NSString stringWithFormat:@"Entity is -> [(cwid: %@)",self.entityId];
+    for(NSString* k in self.properties){
+        ret = [ret stringByAppendingString:[NSString stringWithFormat:@"(%@ : %@)",k,self.properties[k]]];
+    }
+    ret = [ret stringByAppendingString:[NSString stringWithFormat:@"], scores:%@ ; avgScore: %@, Class: %@",self.score,self.avgScore,self.className]];
+    return ret;
+}
+#pragma mark -
 #pragma mark init methods
 - (NSMutableArray*)score
 {

@@ -11,6 +11,9 @@
 
 @interface CWPriorityQueue : NSObject
 
+/**
+ * for testing only
+ */
 @property (nonatomic)dispatch_semaphore_t semaphore;
 
 /**

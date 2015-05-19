@@ -14,5 +14,6 @@
 @interface CWCacheLRUScheme : NSObject <CWCacheSchemeDelegate>
 
 
+//@property (atomic) NSInteger count;
 
 @end
